@@ -1,14 +1,15 @@
 package com.guleni.project.service;
 
-import com.guleni.project.entity.Issue;
+import com.guleni.project.dto.IssueDto;
+import com.guleni.project.util.Tpage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IssueService {
 
-    Issue save(Issue issue);
-    Issue getById(Long id);
-    Page<Issue> getAllIssuePageable(Pageable page);
+    IssueDto save(IssueDto issue);
+    IssueDto getById(Long id);
+    Tpage<IssueDto> getAllIssuePageable(Pageable page);
 
 
 }

@@ -16,6 +16,7 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
 
     @Override
     public IssueHistory save(IssueHistory issueHistory) {
+
         return issueHistoryRepository.save(issueHistory);
     }
 

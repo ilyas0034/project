@@ -17,6 +17,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
+        if(user.getEmail()==null)
+        {
+            throw new IllegalArgumentException("e mail is not found");
+        }
         return userRepository.save(user);
     }
 

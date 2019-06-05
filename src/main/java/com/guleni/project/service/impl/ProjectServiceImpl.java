@@ -17,7 +17,13 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project save(Project project) {
+        if(project.getCode()==null)
+        {
+            throw new IllegalArgumentException("code is not found");
+        }
+
         return projectRepository.save(project);
+
     }
 
     @Override
@@ -26,7 +32,23 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Project getProjectByCodeAndIdNotNull(String code) {
+        return projectRepository.getProjectByCodeAndIdNotNull(code);
+    }
+
+    @Override
+    public Project getProjectByCodeContains(String code) {
+        return projectRepository.getProjectByCode(code);
+    }
+
+    @Override
     public Page<Project> getAllIssuePageable(Pageable page) {
         return projectRepository.findAll(page);
+    }
+
+    @Override
+    public Boolean delete(Project project) {
+        projectRepository.delete(project);
+        return Boolean.TRUE;
     }
 }

@@ -1,32 +1,55 @@
 package com.guleni.project.service.impl;
 
+import com.guleni.project.dto.IssueDto;
 import com.guleni.project.entity.Issue;
 import com.guleni.project.repository.IssueRepository;
 import com.guleni.project.service.IssueService;
+import com.guleni.project.util.Tpage;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Arrays;
+
 public class IssueServiceImpl implements IssueService {
     private final IssueRepository issueRepository;
+    private final ModelMapper modelMapper;
 
-    public IssueServiceImpl(IssueRepository issueRepository)
+    public IssueServiceImpl(IssueRepository issueRepository,ModelMapper modelMapper)
     {
         this.issueRepository=issueRepository;
+        this.modelMapper=modelMapper;
     }
 
 
     @Override
-    public Issue save(Issue issue) {
-        return issueRepository.save(issue);
+    public IssueDto save(IssueDto issue) {
+        if (issue.getDate()==null)
+        {
+            throw new IllegalArgumentException("date can not fill");
+        }
+        Issue issueDb=modelMapper.map(issue,Issue.class);
+        issueDb= issueRepository.save(issueDb);
+
+        return modelMapper.map(issueDb,IssueDto.class);
     }
 
     @Override
-    public Issue getById(Long id) {
-        return issueRepository.getOne(id);
+    public IssueDto getById(Long id) {
+        return null;
     }
 
     @Override
-    public Page<Issue> getAllIssuePageable(Pageable page) {
-        return issueRepository.findAll(page);
+    public Tpage<IssueDto> getAllIssuePageable(Pageable page) {
+        Page<Issue> issue=issueRepository.findAll(page);
+        Tpage<IssueDto> dto=new Tpage<>();
+        IssueDto[] dtos=modelMapper.map(issue,IssueDto[].class);
+        dto.setStat(issue, Arrays.asList(dtos));
+        return dto;
+
+
+
+
+
     }
 }
