@@ -9,6 +9,7 @@ public interface IssueService {
 
     IssueDto save(IssueDto issue);
     IssueDto getById(Long id);
+    IssueDto update(Long id,IssueDto issuDto);
     Tpage<IssueDto> getAllIssuePageable(Pageable page);
 
 

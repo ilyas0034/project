@@ -1,13 +1,14 @@
 package com.guleni.project.service;
 
-import com.guleni.project.entity.Issue;
+import com.guleni.project.dto.ProjectDto;
 import com.guleni.project.entity.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProjectService {
-    Project save(Project project);
-    Project getById(Long id);
+    ProjectDto save(ProjectDto project);
+    ProjectDto getById(Long id);
+    ProjectDto update(Long id,ProjectDto projectDto);
     Project getProjectByCodeAndIdNotNull(String code);
     Project getProjectByCodeContains(String code);
     Page<Project> getAllIssuePageable(Pageable page);

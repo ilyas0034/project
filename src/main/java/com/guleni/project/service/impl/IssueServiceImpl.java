@@ -8,9 +8,10 @@ import com.guleni.project.util.Tpage;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-
+@Service
 public class IssueServiceImpl implements IssueService {
     private final IssueRepository issueRepository;
     private final ModelMapper modelMapper;
@@ -36,6 +37,19 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public IssueDto getById(Long id) {
+        Issue issue=issueRepository.getOne(id);
+
+        return modelMapper.map(issue,IssueDto.class);
+    }
+
+    @Override
+    public IssueDto update(Long id, IssueDto issuDto) {
+        Issue issue=issueRepository.getOne(id);
+        if (issue==null)
+        {
+            throw new IllegalArgumentException("issue does not exist");
+        }
+
         return null;
     }
 
@@ -46,10 +60,10 @@ public class IssueServiceImpl implements IssueService {
         IssueDto[] dtos=modelMapper.map(issue,IssueDto[].class);
         dto.setStat(issue, Arrays.asList(dtos));
         return dto;
-
-
-
-
-
+    }
+    public Boolean delete(Long id)
+    {
+        issueRepository.deleteById(id);
+        return true;
     }
 }

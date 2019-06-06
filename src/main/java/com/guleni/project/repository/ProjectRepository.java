@@ -13,6 +13,7 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
     Project getProjectByCode(String code);
     Project getProjectByCodeAndIdNotNull(String code);
     Project getProjectByCodeContains(String code);
+    Project getProjectByCodeAndIdNot(String code,Long id);
     Page <Project> findAll(Pageable pageable);
     List<Project> findAll(Sort sort);
 
