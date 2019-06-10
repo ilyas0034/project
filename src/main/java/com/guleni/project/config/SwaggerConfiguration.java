@@ -28,7 +28,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select().paths(PathSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("com.guleni.project"))
+                .apis(RequestHandlerSelectors.basePackage("com.guleni"))
                 .build()
                 .pathMapping("/")
                 .useDefaultResponseMessages(false)

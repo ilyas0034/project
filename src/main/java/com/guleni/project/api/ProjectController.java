@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(ApiPaths.ProjectCtrl.CTRL)
-@Api(value="Project API")
+@Api(value=ApiPaths.ProjectCtrl.CTRL,description = "Api Document for Project Controller ")
 public class ProjectController {
 
 
