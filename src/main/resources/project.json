@@ -1,0 +1,26 @@
+[ {
+  "_class": "com.guleni.project.entity.Project",
+  "code": "IM",
+  "name": "Issue Management Project"
+},
+  {
+    "_class":"com.guleni.project.entity.Project",
+    "code": "ERP-S",
+    "name": "ERP Project for Sales"
+  },
+  {
+    "_class":"com.guleni.project.entity.Project",
+    "code": "CRM-S",
+    "name":"CRM Project for Sales"
+  },
+  {
+    "_class": "com.guleni.project.entity.Project",
+    "code": "CRM-B",
+    "name": "CRM Project for Bussiness"
+  },
+  {
+    "_class": "com.guleni.project.entity.Project",
+    "code":  "ERP-B",
+    "name": "ERP Project for Bussiness"
+  }
+]

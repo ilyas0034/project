@@ -3,15 +3,16 @@ package com.guleni.project.api;
 import com.guleni.project.dto.ProjectDto;
 import com.guleni.project.service.impl.ProjectServiceImpl;
 import com.guleni.project.util.ApiPaths;
-import com.oracle.tools.packager.Log;
+import com.guleni.project.util.Tpage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping(ApiPaths.ProjectCtrl.CTRL)
@@ -30,6 +31,16 @@ public class ProjectController {
 
     public ProjectController(ProjectServiceImpl projectService) {
         this.projectService = projectService;
+    }
+
+
+    @GetMapping("/pagination")
+    @ApiOperation(value = "get pagination by id project api",response = ProjectDto.class,httpMethod = "Get")
+    public ResponseEntity<Tpage<ProjectDto>> getPaginationById(Pageable page)
+    {
+        log.info("Project Controller get pagination  by ıd metodu çağrıldı");
+        Tpage<ProjectDto> dto=projectService.getAllIssuePageable(page);
+        return ResponseEntity.ok(dto);
     }
 
 

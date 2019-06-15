@@ -4,10 +4,13 @@ import com.guleni.project.dto.ProjectDto;
 import com.guleni.project.entity.Project;
 import com.guleni.project.repository.ProjectRepository;
 import com.guleni.project.service.ProjectService;
+import com.guleni.project.util.Tpage;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -72,8 +75,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Page<Project> getAllIssuePageable(Pageable page) {
-        return projectRepository.findAll(page);
+    public Tpage<ProjectDto> getAllIssuePageable(Pageable page) {
+        Page<Project> projects=projectRepository.findAll(page);
+        Tpage<ProjectDto> dto=new Tpage<>();
+        ProjectDto[] dtos=modelMapper.map(projects.getContent(),ProjectDto[].class);
+        dto.setStat(projects, Arrays.asList(dtos));
+        return dto;
     }
 
     @Override
