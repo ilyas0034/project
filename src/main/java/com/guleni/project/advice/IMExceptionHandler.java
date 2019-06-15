@@ -1,5 +1,6 @@
 package com.guleni.project.advice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,12 +15,14 @@ Bu class bizim api mızın herhangi bir exception oluştuğunda bu formatı kend
  */
 @ControllerAdvice
 @RestController
+@Slf4j
 public class IMExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<?> handlerException(Exception ex, WebRequest request)
     {
+        log.error("EXCTEPTİON  OLUŞTU :",ex,request);
         ExceptionResponse exceptionResponse=new ExceptionResponse(new Date(),ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.EXPECTATION_FAILED);
     }
