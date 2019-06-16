@@ -3,13 +3,17 @@ package com.guleni.project.api;
 import com.guleni.project.dto.ProjectDto;
 import com.guleni.project.service.impl.ProjectServiceImpl;
 import com.guleni.project.util.ApiPaths;
+import com.guleni.project.util.Tpage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequestMapping(ApiPaths.ProjectCtrl.CTRL)
 @Api(value=ApiPaths.ProjectCtrl.CTRL,description = "Api Document for Project Controller ")
@@ -30,11 +34,24 @@ public class ProjectController {
     }
 
 
+    @GetMapping("/pagination")
+    @ApiOperation(value = "get pagination by id project api",response = ProjectDto.class,httpMethod = "Get")
+    public ResponseEntity<Tpage<ProjectDto>> getPaginationById(Pageable page)
+    {
+        log.info("Project Controller get pagination  by ıd metodu çağrıldı");
+        Tpage<ProjectDto> dto=projectService.getAllIssuePageable(page);
+        return ResponseEntity.ok(dto);
+    }
+
+
     @GetMapping("/{id}")
     @ApiOperation(value = "get by id project api",response = ProjectDto.class,httpMethod = "Get")
     public ResponseEntity<ProjectDto> getById(@PathVariable(value = "id",required = true) Long id)
     {
+        log.info("get id:"+id);
+        log.info("Project Controller get by ıd metodu çağrıldı");
         ProjectDto dto=projectService.getById(id);
+
 
         return ResponseEntity.ok(dto);
     }
